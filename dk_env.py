@@ -85,7 +85,7 @@ def ground(x0,x1,y0,y1):
 class Layout:
     # one ladder configuration: which ladders exist, plus the path-to-goal data built for it
     def __init__(self,removed,bodies,chains,dist,hint,ok):
-        self.removed=self.bodies=self.chains=removed,bodies,chains
+        self.removed,self.bodies,self.chains=removed,bodies,chains
         self.dist,self.hint,self.ok=dist,hint,ok
         self.d0=max(d for d in dist if d<1e8)  # longest finite distance (normaliser)
         self.cost=dist[P_OFF[0]+(SPAWN[0]-PX0[0])//SW]  # path length from spawn to goal
@@ -579,12 +579,12 @@ class DonkeyKongEnv:
         sf.blit(self.bgs[self.L.removed],(0,0))
         flick=(self.t//15)%2
         sf.blit(pygame.transform.flip(im['flames'],bool(flick),False),(OIL.x,OIL.y-SH))
-        sf.blit(im['peach'][self.bcount>=self.p['spawn']//2],(10*SW,self.row6_y-6*SH))
+        sf.blit(im['peach'][self.bcount>=self.p['spawn']//2],(10*SW,row6_y-6*SH))
         ph=self.btime//4
         left=self.p['spawn']-self.bcount
         kong=im['dk'][1] if left>3*ph else im['dk'][0] if left>2*ph else im['dk'][2] if left>ph \
             else pygame.transform.flip(im['dk'][0],True,False)
-        sf.blit(kong,(3.5*SW,self.row6_y-5.5*SH))
+        sf.blit(kong,(3.5*SW,row6_y-5.5*SH))
         for h in self.hammers:
             sf.blit(im['hammer'],h.topleft)
         for b in self.barrels:
